@@ -1,0 +1,517 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>创生通 · 技术团队搭建方案</title>
+  <style>
+    :root {
+      --ink: #101828;
+      --muted: #5d6678;
+      --line: #d6dbe4;
+      --paper: #fafbfc;
+      --panel: #ffffff;
+      --blue: #063b63;
+      --green: #0b6f5a;
+      --gold: #8c5a00;
+      --red: #b11226;
+      --purple: #4c3f7a;
+      --cyan: #006b7f;
+      --soft-blue: #eef4f8;
+      --soft-green: #eef7f4;
+      --soft-gold: #fbf4e5;
+      --soft-red: #f8ecee;
+      --soft-purple: #f2eff8;
+      --soft-cyan: #eaf6f8;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+        "Microsoft YaHei", "Noto Sans CJK SC", Arial, sans-serif;
+      line-height: 1.62;
+    }
+
+    .page {
+      width: min(1120px, calc(100vw - 36px));
+      margin: 0 auto;
+      padding: 28px 0 72px;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      background: #fff;
+      padding: 38px 0 32px;
+      border-top: 6px solid var(--purple);
+      border-bottom: 1px solid var(--line);
+    }
+    .eyebrow {
+      color: var(--purple);
+      font-size: 13px;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+    h1 { font-size: 42px; margin-top: 14px; line-height: 1.15; max-width: 900px; }
+    .hero p { max-width: 900px; margin-top: 16px; color: var(--muted); font-size: 17px; }
+    .meta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+    .meta span {
+      border: 1px solid var(--line); border-radius: 2px;
+      padding: 7px 12px; color: #344054; font-size: 13px; background: #fff;
+    }
+
+    /* ── Sections ── */
+    .section {
+      margin-top: 24px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 0;
+      padding: 28px 30px;
+    }
+    .section-title {
+      display: flex; align-items: flex-start; justify-content: space-between;
+      gap: 20px; margin-bottom: 22px;
+    }
+    .section-title h2 { font-size: 24px; line-height: 1.2; }
+    .section-title p { margin-top: 5px; color: var(--muted); max-width: 650px; font-size: 14px; }
+
+    /* ── Tags ── */
+    .tag {
+      display: inline-flex; align-items: center;
+      min-height: 28px; padding: 4px 10px; border-radius: 2px;
+      font-size: 12px; font-weight: 700; white-space: nowrap;
+    }
+    .tag.blue   { color: var(--blue);   background: var(--soft-blue); }
+    .tag.green  { color: var(--green);  background: var(--soft-green); }
+    .tag.gold   { color: var(--gold);   background: var(--soft-gold); }
+    .tag.red    { color: var(--red);    background: var(--soft-red); }
+    .tag.purple { color: var(--purple); background: var(--soft-purple); }
+    .tag.cyan   { color: var(--cyan);   background: var(--soft-cyan); }
+
+    /* ── Role Cards ── */
+    .role-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 16px;
+    }
+    .role-card {
+      border: 1px solid var(--line); border-radius: 0; padding: 20px;
+      background: #fff; position: relative;
+    }
+    .role-card.priority {
+      border-left: 4px solid var(--red);
+    }
+    .role-header {
+      display: flex; align-items: center; gap: 10px; margin-bottom: 14px;
+    }
+    .role-num {
+      width: 32px; height: 32px; display: grid; place-items: center;
+      background: var(--ink); color: #fff; font-weight: 800; font-size: 14px;
+      border-radius: 2px; flex-shrink: 0;
+    }
+    .role-header h3 { font-size: 17px; line-height: 1.3; }
+    .role-subtitle { font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+    .why-box {
+      background: var(--soft-red); border-radius: 0; padding: 10px 14px;
+      margin-bottom: 12px; font-size: 13px;
+    }
+    .why-box strong { color: var(--red); }
+
+    .skill-list { list-style: none; padding: 0; }
+    .skill-list li {
+      position: relative; padding-left: 16px; margin-bottom: 7px;
+      font-size: 13px; color: var(--muted);
+    }
+    .skill-list li::before {
+      content: "▸"; position: absolute; left: 0; color: var(--ink);
+      font-size: 11px; top: 1px;
+    }
+    .skill-list li b { color: var(--ink); }
+
+    .redline {
+      margin-top: 10px; padding: 8px 12px;
+      background: #fff; border: 1px solid var(--red);
+      border-radius: 0; font-size: 12px; color: var(--red); font-weight: 700;
+    }
+
+    /* ── Co-founder Section ── */
+    .pillar-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .pillar {
+      border: 1px solid var(--line); padding: 18px; background: #fff;
+    }
+    .pillar h4 {
+      font-size: 15px; margin-bottom: 10px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .pillar ul { padding-left: 18px; color: var(--muted); font-size: 13px; }
+    .pillar ul li { margin-bottom: 6px; }
+    .pillar ul li strong { color: var(--ink); }
+
+    .soft-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 14px;
+      margin-top: 16px;
+    }
+    .soft-card {
+      border: 1px solid var(--line); padding: 16px; background: #fff;
+    }
+    .soft-card h4 { font-size: 14px; margin-bottom: 7px; }
+    .soft-card p { font-size: 13px; color: var(--muted); }
+
+    .find-box {
+      margin-top: 16px;
+      background: var(--soft-purple);
+      border-radius: 0; padding: 16px 18px; font-size: 13px;
+    }
+    .find-box h4 { font-size: 15px; margin-bottom: 8px; color: var(--purple); }
+
+    /* ── Timeline ── */
+    .timeline { position: relative; }
+    .phase {
+      display: grid; grid-template-columns: 180px 1fr;
+      gap: 20px; align-items: start; padding: 20px 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .phase:last-child { border-bottom: 0; }
+    .phase-label { font-weight: 800; font-size: 15px; }
+    .phase-label small { display: block; color: var(--muted); font-weight: 500; margin-top: 3px; }
+    .phase-body h4 { font-size: 16px; margin-bottom: 6px; }
+    .phase-body p { color: var(--muted); font-size: 14px; }
+    .phase-people {
+      display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px;
+    }
+    .phase-people span {
+      border: 1px solid var(--line); border-radius: 2px;
+      padding: 3px 8px; font-size: 12px; background: #fafbfc;
+    }
+
+    /* ── Quote ── */
+    .quote {
+      background: var(--purple); color: #fff; border-radius: 0;
+      padding: 22px 26px; font-size: 20px; font-weight: 800; line-height: 1.42;
+    }
+    .quote small { display: block; color: #c5bfe3; font-size: 13px; font-weight: 500; margin-top: 12px; }
+
+    /* ── Footer ── */
+    .footer { margin-top: 26px; color: var(--muted); font-size: 12px; text-align: center; }
+
+    /* ── Big callout ── */
+    .big-callout {
+      border-left: 5px solid var(--purple);
+      background: #f7f8fa; border-radius: 0;
+      padding: 18px 20px; margin-top: 18px;
+      font-size: 17px; font-weight: 700;
+    }
+
+    @media (max-width: 900px) {
+      h1 { font-size: 30px; }
+      .pillar-grid, .phase { grid-template-columns: 1fr; }
+      .role-grid { grid-template-columns: 1fr; }
+    }
+    @media print {
+      body { background: #fff; }
+      .section { break-inside: avoid; box-shadow: none; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+
+    <!-- ═══ HERO ═══ -->
+    <section class="hero">
+      <div class="eyebrow">创生通 · 产品启动前准备</div>
+      <h1>技术团队搭建方案</h1>
+      <p>涵盖 MVP → A 轮阶段的核心岗位清单与技术联合创始人画像，为项目正式启动做好人才储备。</p>
+      <div class="meta">
+        <span>项目：创生通</span>
+        <span>主题：技术团队搭建</span>
+        <span>阶段：MVP → A 轮</span>
+        <span>日期：2026-06-15</span>
+      </div>
+    </section>
+
+    <!-- ═══ PART 1 HEADER ═══ -->
+    <section class="section">
+      <div class="section-title">
+        <div>
+          <h2>Part 1｜核心岗位需求明细</h2>
+          <p>MVP 阶段核心原则：用最少的全职高手，配以适量的外包/兼职，换最快的验证速度。按「不可或缺」优先级排列，初期可由一人兼任多职，但职责必须有人覆盖。</p>
+        </div>
+        <span class="tag purple">5 Roles · MVP→A轮</span>
+      </div>
+
+      <!-- ── Role Cards ── -->
+      <div class="role-grid">
+
+        <!-- Role 1: Backend Architect -->
+        <div class="role-card priority">
+          <div class="role-header">
+            <div class="role-num">1</div>
+            <div>
+              <h3>后端开发工程师（架构师方向）</h3>
+              <div class="role-subtitle">你的技术地基 · 不可或缺 ⭐</div>
+            </div>
+          </div>
+          <div class="why-box">
+            <strong>为什么不可或缺：</strong>产品不是简单 CRUD，包含高并发双向匹配算法、AI 模型调用与数据管道、支付与财务结算、严苛的隐私与数据安全要求。
+          </div>
+          <ul class="skill-list">
+            <li><b>经验：</b>5 年以上后端，主导过百万级用户产品的架构设计</li>
+            <li><b>语言：</b>Go / Java / Python（Go 更适合高并发场景）</li>
+            <li><b>数据库：</b>PostgreSQL（主数据）+ Redis（缓存与匹配队列）+ MongoDB（日志与行为数据）</li>
+            <li><b>消息队列：</b>Kafka / RabbitMQ（异步处理 AI 调用、通知推送）</li>
+            <li><b>容器化：</b>Docker + K8s（必须，从 Day 1 就上容器）</li>
+            <li><b>推荐系统：</b>有匹配引擎或推荐系统设计经验</li>
+            <li><b>合规：</b>熟悉数据隐私法规（GDPR/个保法），能设计数据隔离与脱敏方案</li>
+          </ul>
+          <div class="redline">🚫 红线：没做过用户数据安全设计、不懂 API 版本管理的人不能用</div>
+        </div>
+
+        <!-- Role 2: Frontend/Mobile -->
+        <div class="role-card priority">
+          <div class="role-header">
+            <div class="role-num">2</div>
+            <div>
+              <h3>前端/移动端开发工程师</h3>
+              <div class="role-subtitle">用户的第一感知 · 不可或缺 ⭐</div>
+            </div>
+          </div>
+          <div class="why-box">
+            <strong>为什么不可或缺：</strong>核心交互是「左滑右滑」，对流畅度和动画要求极高——卡顿 = 流失。投资人/创业者群体偏高端，对 UI/UX 容忍度极低。
+          </div>
+          <ul class="skill-list">
+            <li><b>经验：</b>3 年以上移动端开发经验</li>
+            <li><b>技术选型：</b>Flutter 或 React Native（MVP 首选 Flutter，性能接近原生，一套代码覆盖两端）</li>
+            <li><b>手势交互：</b>必须有过复杂手势交互开发经验（拖拽、滑动、回弹动画）</li>
+            <li><b>性能：</b>理解移动端性能优化，60fps 是底线</li>
+            <li><b>IM 模块：</b>有即时通讯模块集成经验（导师咨询需要文字/语音通信）</li>
+            <li><b>加分项：</b>做过社交类或卡片式交互产品的前端</li>
+          </ul>
+        </div>
+
+        <!-- Role 3: AI/ML Engineer -->
+        <div class="role-card priority">
+          <div class="role-header">
+            <div class="role-num">3</div>
+            <div>
+              <h3>AI/ML 工程师</h3>
+              <div class="role-subtitle">你的核心护城河 · 不可或缺 ⭐</div>
+            </div>
+          </div>
+          <div class="why-box">
+            <strong>为什么不可或缺：</strong>这是区别于所有纯社交竞品的唯一壁垒。AI 财税法风控报告不是调用 ChatGPT 包装一下就行，需要结构化输出、风险点识别、文本理解。
+          </div>
+          <ul class="skill-list">
+            <li><b>经验：</b>2 年以上 NLP/文本处理方向经验</li>
+            <li><b>语言：</b>Python（必须）</li>
+            <li><b>框架：</b>LangChain / LlamaIndex 等 LLM 编排框架</li>
+            <li><b>Prompt：</b>Prompt Engineering 深度经验——工程化、可评估、可迭代的提示流</li>
+            <li><b>向量数据库：</b>Pinecone / Milvus（项目文档语义检索）</li>
+            <li><b>结构化输出：</b>有过「非结构化文本 → 结构化报告」开发经验（合同审查、财报分析、尽调摘要等）</li>
+            <li><b>RAG 架构：</b>理解检索增强生成，能降低模型幻觉</li>
+          </ul>
+          <div class="redline">💡 MVP 务实做法：基于 GPT-4/Claude API 做精调 Prompt + 结构化输出，不要自研模型，把精力放在结果质量和准确率上</div>
+        </div>
+
+        <!-- Role 4: UI/UX Designer -->
+        <div class="role-card">
+          <div class="role-header">
+            <div class="role-num">4</div>
+            <div>
+              <h3>UI/UX 设计师</h3>
+              <div class="role-subtitle">信任感的视觉化 · 不可或缺 ⭐</div>
+            </div>
+          </div>
+          <div class="why-box">
+            <strong>为什么不可或缺：</strong>独特挑战——「严肃的商业决策」与「游戏化交互」之间的张力。普通设计师会把 App 做成四不像。设计质感即信任度。
+          </div>
+          <ul class="skill-list">
+            <li><b>经验：</b>3 年以上移动端产品设计经验</li>
+            <li><b>作品集：</b>必须有过「复杂信息可视化」或「B 端工具类」设计案例</li>
+            <li><b>信任设计：</b>理解如何通过排版、配色、动效传递专业、安全、可靠</li>
+            <li><b>加分：</b>有社交或金融类产品设计经验</li>
+            <li><b>交互能力：</b>不只是画界面，能写交互说明文档</li>
+          </ul>
+          <div class="redline">🎯 面试题建议：当场设计「一份 AI 风控报告的移动端呈现方案」，看信息层级和可读性</div>
+        </div>
+
+        <!-- Role 5: Backend Business -->
+        <div class="role-card">
+          <div class="role-header">
+            <div class="role-num">5</div>
+            <div>
+              <h3>后端开发工程师（业务方向）</h3>
+              <div class="role-subtitle">服务端功能实现者</div>
+            </div>
+          </div>
+          <div class="why-box">
+            <strong>为什么不可或缺：</strong>架构师定好基调和框架后，需要有人快速落地业务功能——用户系统、支付模块、IM、通知系统。
+          </div>
+          <ul class="skill-list">
+            <li><b>经验：</b>3 年以上后端开发经验</li>
+            <li><b>技术栈：</b>与架构师使用相同技术栈（便于协作）</li>
+            <li><b>支付：</b>有支付系统对接经验（Stripe/支付宝/微信支付）</li>
+            <li><b>认证：</b>有认证系统开发经验（身份认证、企业认证的多级审核流）</li>
+            <li><b>IM：</b>熟悉 WebSocket / 长连接</li>
+          </ul>
+        </div>
+
+      </div> <!-- /role-grid -->
+    </section>
+
+    <!-- ═══ PART 2: CO-FOUNDER ═══ -->
+    <section class="section">
+      <div class="section-title">
+        <div>
+          <h2>Part 2｜技术联合创始人画像</h2>
+          <p>技术联合创始人不是「最牛的码农」，而是能用技术翻译商业需求、用架构承载未来 3 年增长、用工程师文化吸引顶级人才的人。</p>
+        </div>
+        <span class="tag gold">Co-Founder Profile</span>
+      </div>
+
+      <!-- Hard Requirements -->
+      <h3 style="font-size:18px; margin-bottom:12px;">🏗️ 硬性门槛</h3>
+      <div class="pillar-grid">
+        <div class="pillar">
+          <h4>全栈视野 + 后端深厚</h4>
+          <p style="font-size:13px;color:var(--muted);">能从前端手势交互的 60fps，到后端匹配算法的复杂度，再到 AI 模型的调用链，全部心里有数。能精准判断每个环节的技术难度和人力投入。</p>
+        </div>
+        <div class="pillar">
+          <h4>做过 0 到 1</h4>
+          <p style="font-size:13px;color:var(--muted);">经历过一个产品从第一行代码到承载 10 万+ 用户的全过程，知道什么阶段该快速堆功能，什么阶段必须停下来重构。没经历过「技术债爆发」的人，会在错误的时间做错误的技术决策。</p>
+        </div>
+        <div class="pillar">
+          <h4>数据安全与合规的底层认知</h4>
+          <p style="font-size:13px;color:var(--muted);">必须能一开口就说出「BP 做存储端加密、传输层 TLS、数据库字段级脱敏、用户可见范围权限表……」——而不是等你提醒。</p>
+        </div>
+        <div class="pillar">
+          <h4>至少精通一种云原生生态</h4>
+          <p style="font-size:13px;color:var(--muted);">AWS / Azure / 阿里云其中之一，能估算成本。如果不能对「这个功能上线后每月会增加多少云成本」给出数量级估算，会烧光你的钱。</p>
+        </div>
+      </div>
+
+      <!-- Soft Qualities -->
+      <h3 style="font-size:18px; margin-top:22px; margin-bottom:12px;">🧠 软性素质（这部分比技术更重要）</h3>
+      <div class="soft-grid">
+        <div class="soft-card">
+          <h4>🎯 产品感，不是只接需求</h4>
+          <p>你说「做一个 AI 风控报告」，他会反问：「报告是生成一页长图还是分步交互展示？用户最关心的 3 个风险点在哪？生成需要 15 秒，用什么动画填补等待焦虑？」——会挑战你的产品方案，而不是只会执行。</p>
+        </div>
+        <div class="soft-card">
+          <h4>🔧 务实的技术选型能力</h4>
+          <p>知道什么该自研、什么该买、什么该开源。匹配算法初期用「规则 + 简单向量相似度」就行，别上来就搞深度神经网络；AI 风控用 GPT-4 API 先跑通，别自建模型。</p>
+        </div>
+        <div class="soft-card">
+          <h4>💰 对成本敏感</h4>
+          <p>能从第一天就建立成本意识。能预判「某云函数方案流量上来后自动扩缩容三天烧光月预算」这类问题。</p>
+        </div>
+        <div class="soft-card">
+          <h4>📣 工程师文化布道者</h4>
+          <p>未来招 5 个、10 个、20 个工程师时，这个人的技术品位、代码审查习惯、文档规范程度，直接决定整个技术团队的水平。能把复杂技术问题讲清楚，才能帮你融资时过技术 DD。</p>
+        </div>
+        <div class="soft-card">
+          <h4>🫡 抗压与极度务实</h4>
+          <p>创业公司技术栈不可能完美，必须能在「屎山」上快速奔跑的同时，知道哪座屎山必须先铲掉。分清「完美主义」和「生存必须」。</p>
+        </div>
+      </div>
+
+      <!-- How to Find -->
+      <div class="find-box">
+        <h4>🔍 如何找到这样的人？</h4>
+        <ul style="padding-left:18px; color:var(--muted);">
+          <li><strong>从哪里找：</strong>大厂 T7-T9 级别，做过类似社交/推荐/金融系统，且有副业或开源项目经历；另一个好来源是经历过一次创业退出（无论成败）的 CTO，他们对「什么不该做」有深刻理解。</li>
+          <li style="margin-top:6px;"><strong>判断方法：</strong>先别让他写代码。给场景——「匹配池里 5000 个投资人标签 + 10 万个项目标签，首版匹配规则怎么设计才能让首屏推荐结果的双方感兴趣率达到 15%？」看分析框架是否从「冷启动」「多样性保证」「反馈闭环」这些商业结果出发。</li>
+          <li style="margin-top:6px;"><strong>股权分配：</strong>技术联合创始人通常占联合创始人级别股份（15%-30%），取决于加入阶段和是否有薪资。天使轮后加入通常给薪资 + 可观期权。建议用 4 年兑现 + 1 年悬崖的标准方案保护项目。</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ═══ PART 3: TIMELINE ═══ -->
+    <section class="section">
+      <div class="section-title">
+        <div>
+          <h2>Part 3｜团队搭建节奏建议</h2>
+          <p>分三个阶段渐进式扩编，每个阶段目标清晰，避免过早烧钱。</p>
+        </div>
+        <span class="tag green">Hiring Roadmap</span>
+      </div>
+
+      <div class="timeline">
+        <div class="phase">
+          <div class="phase-label">
+            正式启动前
+            <small>原型验证</small>
+          </div>
+          <div class="phase-body">
+            <h4>产品原型 + 高保真交互稿</h4>
+            <p>CEO + 技术联创 + UI/UX 设计师（可兼职/外包），三股力量把产品概念锁定为可交互的原型。</p>
+            <div class="phase-people">
+              <span>👤 CEO</span>
+              <span>👤 技术联创</span>
+              <span>👤 UI/UX 设计师（兼职/外包）</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="phase">
+          <div class="phase-label">
+            天使轮 → MVP
+            <small>3 人 · 3 个月</small>
+          </div>
+          <div class="phase-body">
+            <h4>核心匹配 + AI 风控报告的最简版本必须上线</h4>
+            <p>技术联创 + 1 名全栈（前后端都写）+ 1 名 AI 工程师，极致精简，只做验证必须的功能。</p>
+            <div class="phase-people">
+              <span>👤 技术联创</span>
+              <span>👤 全栈工程师</span>
+              <span>👤 AI 工程师</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="phase">
+          <div class="phase-label">
+            A 轮前后
+            <small>完整团队</small>
+          </div>
+          <div class="phase-body">
+            <h4>按清单补齐专职岗位</h4>
+            <p>专职前端 + 专职后端业务 + 专职后端架构（如果技术联创本身能力覆盖架构，可先不招架构师，省下钱投市场）。</p>
+            <div class="phase-people">
+              <span>👤 技术联创</span>
+              <span>👤 全栈 → 拆分专职前后端</span>
+              <span>👤 AI 工程师</span>
+              <span>👤 专职前端</span>
+              <span>👤 专职后端（业务）</span>
+              <span>👤 架构师（视联创能力而定）</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ CLOSING QUOTE ═══ -->
+    <section class="section">
+      <div class="quote">
+        技术联合创始人不是「最牛的码农」，而是能用技术翻译商业需求、用架构承载未来 3 年增长、用工程师文化吸引顶级人才的人。
+        <small>——团队搭建核心原则</small>
+      </div>
+      <div class="big-callout" style="margin-top:16px;">
+        一句话总结：MVP 阶段 3 个人（联创 + 全栈 + AI），3 个月，必须上线核心匹配 + AI 风控报告的最简版本。之后再按 A 轮节奏补齐专职前端、专职后端业务、专职架构。
+      </div>
+    </section>
+
+    <div class="footer">创生通 · 技术团队搭建方案 · 内部材料</div>
+
+  </main>
+</body>
+</html>
